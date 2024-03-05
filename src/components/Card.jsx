@@ -1,26 +1,66 @@
-import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import React, { useEffect } from "react";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import video from "../assets/videos/stockvideo.mp4";
 import image from "../assets/images/stockimage.svg";
 import image2 from "../assets/images/10332256_4412010.svg";
 import loginImg from "../assets/images/Code typing2.svg";
 import googleIcon from "../assets/images/google-icon.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+import axios from "axios";
 
 const Card = ({ ...props }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // REGISTER
+  const handleRegister = async (values) => {
+    try {
+      const res = await axios.post("/api/v1/auth/register", values);
+      if (res?.data?.success) {
+        message.success("Successfully Registered");
+        navigate("/login");
+      } else {
+        message.error(res?.data?.message);
+      }
+    } catch (error) {
+      console.log("Error in React-Register");
+      message.error("Something went wrong!!!");
+    }
+  };
+
+  const handleLogin = async (values) => {
+    // console.log(values);
+    let rem = values.remember;
+    delete values.remember;
+    try {
+      const res = await axios.post("/api/v1/auth/login", values);
+      if (res?.data?.success) {
+        if (rem) {
+          localStorage.setItem("token", res?.data?.token);
+        }
+        message.success("Logged in successfully");
+        navigate("/");
+      } else {
+        message.error(res?.data?.message);
+      }
+    } catch (error) {
+      console.log("Error in React-register");
+    }
+  };
+
   //GOOGLE SIGN IN HANDLER
 
   const googleSignHandler = () => {};
+  const loginSwitch = () => {
+    if (location.pathname === "/register") {
+      navigate("/login");
+    }
+  };
+  const registerSwitch = () => {
+    if (location.pathname === "/login") {
+      navigate("/register");
+    }
+  };
 
   return (
     <>
@@ -41,7 +81,7 @@ const Card = ({ ...props }) => {
                 <button
                   className="get-started-btn"
                   onClick={() => {
-                    navigate("/auth");
+                    navigate("/login");
                   }}
                 >
                   Get Started <i className="fa-solid fa-right-to-bracket" />
@@ -105,26 +145,42 @@ const Card = ({ ...props }) => {
               </div>
             </>
           )}
-          {(props.current === "login" || props.current === "register") && (
+          {props.current === "login" && (
             <>
               <div className="stock-image">
                 <img src={loginImg} alt="loginImg" />
               </div>
               <div className="get-started-login">
-                <h1 className="loginHead">Login</h1>
+                <div className="switch-buttons">
+                  <div
+                    className={`login-btn ${
+                      location.pathname === "/login" ? "btn-active" : ""
+                    }`}
+                    onClick={loginSwitch}
+                  >
+                    <span>Login</span>
+                  </div>
+                  <div
+                    className={`register-btn ${
+                      location.pathname === "/register" ? "btn-active" : ""
+                    }`}
+                    onClick={registerSwitch}
+                  >
+                    <span>Register</span>
+                  </div>
+                </div>
                 <Form
                   name="basic"
-                  labelCol={{ span: 8 }}
+                  labelCol={{ span: 10 }}
                   wrapperCol={{ span: 16 }}
                   style={{ maxWidth: 600 }}
                   initialValues={{ remember: true }}
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
+                  onFinish={handleLogin}
                   autoComplete="off"
                 >
                   <Form.Item
-                    label="Username"
-                    name="username"
+                    label="Username/Email"
+                    name="usernameOrEmail"
                     rules={[
                       {
                         required: true,
@@ -147,26 +203,23 @@ const Card = ({ ...props }) => {
                   >
                     <Input.Password />
                   </Form.Item>
-
-                  <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                      offset: 8,
-                      span: 16,
-                    }}
-                  >
-                    <Checkbox>Remember me</Checkbox>
-                  </Form.Item>
+                  <span className="rem-forgot-password">
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                      <Checkbox>Remember me</Checkbox>
+                    </Form.Item>
+                    <Link className="forgot-password" to={"/forgot-password"}>
+                      Forgot Password
+                    </Link>
+                  </span>
 
                   <Form.Item
                     wrapperCol={{
-                      offset: 8,
+                      offset: 2,
                       span: 16,
                     }}
                   >
                     <Button type="primary" htmlType="submit">
-                      Submit
+                      Login
                     </Button>
                   </Form.Item>
                 </Form>
@@ -181,13 +234,136 @@ const Card = ({ ...props }) => {
                   </div>
                   <div className="auth-text">Sign In</div>
                 </button>
-                {location.pathname === "/auth" ? (
+                {location.pathname === "/login" ? (
                   <span className="redirect">
                     New User? <Link to={"/register"}>Sign Up</Link>
                   </span>
                 ) : (
                   <span className="redirect">
-                    Already a user? <Link to={"/auth"}>Sign In</Link>
+                    Already a user? <Link to={"/login"}>Sign In</Link>
+                  </span>
+                )}
+              </div>
+            </>
+          )}
+          {props.current === "register" && (
+            <>
+              <div className="stock-image">
+                <img src={loginImg} alt="loginImg" />
+              </div>
+              <div className="get-started-login">
+                <div className="switch-buttons">
+                  <div
+                    className={`login-btn ${
+                      location.pathname === "/login" ? "btn-active" : ""
+                    }`}
+                    onClick={loginSwitch}
+                  >
+                    <span>Login</span>
+                  </div>
+                  <div
+                    className={`register-btn ${
+                      location.pathname === "/register" ? "btn-active" : ""
+                    }`}
+                    onClick={registerSwitch}
+                  >
+                    <span>Register</span>
+                  </div>
+                </div>
+                <Form
+                  name="basic"
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  style={{ maxWidth: 600 }}
+                  initialValues={{ remember: true }}
+                  onFinish={handleRegister}
+                  autoComplete="off"
+                  className="reg-form"
+                >
+                  <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your username!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Email ID"
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your email!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your password!",
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Location"
+                    name="location"
+                    className="non-compulsory"
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Affiliation"
+                    name="affiliation"
+                    className="non-compulsory"
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    wrapperCol={{
+                      offset: 2,
+                      span: 16,
+                    }}
+                  >
+                    <Button type="primary" htmlType="submit">
+                      Register
+                    </Button>
+                  </Form.Item>
+                </Form>
+                <div className="separator">
+                  <span className="line line-left"></span>
+                  <span className="separator-text">or</span>
+                  <span className="line line-right"></span>
+                </div>
+                <button className="oauths" onClick={googleSignHandler}>
+                  <div className="authIcon">
+                    <img src={googleIcon} alt="googleIcon" />
+                  </div>
+                  <div className="auth-text">Sign In</div>
+                </button>
+                {location.pathname === "/login" ? (
+                  <span className="redirect">
+                    New User? <Link to={"/register"}>Sign Up</Link>
+                  </span>
+                ) : (
+                  <span className="redirect">
+                    Already a user? <Link to={"/login"}>Sign In</Link>
                   </span>
                 )}
               </div>

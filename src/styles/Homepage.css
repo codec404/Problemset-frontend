@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Honk&display=swap");
+.light-mode {
+  --nav-bg: rgba(1, 1, 104, 0.4);
+  --btn-hover-bg: linear-gradient(
+    to right,
+    rgb(41, 92, 185),
+    rgb(67, 122, 224)
+  );
+  --btn-hover-col: white;
+  --menu-col: #d5d5fa;
+  --bx-sh: rgba(0, 0, 0, 0.4) 1px 2px 4px;
+  --menu-hov-active-col: white;
+  --profile-icon: d5d5fa;
+  --dropdown-bg: rgb(149, 142, 241);
+  --dropdown-menu-item-col: rgb(233, 237, 247);
+  --dropdown-menu-item-active-bg: rgba(0, 110, 255, 0.26);
+}
+
+.dark-mode {
+  --nav-bg: rgba(5, 5, 54, 1);
+  --btn-hover-bg: linear-gradient(
+    to right,
+    rgb(41, 92, 185),
+    rgb(67, 122, 224)
+  );
+  --btn-hover-col: white;
+  --menu-col: #6a9af1;
+  --bx-sh: rgba(138, 139, 145, 0.541) 1px 2px 4px;
+  --menu-hov-active-col: rgb(196, 224, 240);
+  --profile-icon: cyan;
+  --dropdown-bg: rgb(33, 34, 105);
+  --dropdown-menu-item-col: rgb(146, 198, 240);
+  --dropdown-menu-item-active-bg: rgba(0, 110, 255, 0.26);
+}
+
+.home-nav {
+  width: 100%;
+  max-width: 100vw;
+  height: 50px;
+  max-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border-bottom: 1px solid blue; */
+  background: var(--nav-bg);
+  font-family: "Honk", system-ui;
+  font-size: 1.7rem;
+  padding-left: 35px;
+}
+
+.home-nav-menu {
+  height: 100%;
+  /* width: 250px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navListHome {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+  color: var(--menu-col);
+  font-size: 1.3rem;
+}
+
+.navListHome li {
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.profile-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.profile i {
+  font-size: 2rem;
+  color: var(--profile-icon);
+}
+
+.username {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.2rem;
+  color: var(--profile-icon);
+  margin-left: -15px;
+  margin-right: 20px;
+}
+
+.ant-dropdown-menu {
+  background-color: var(--dropdown-bg) !important;
+}
+
+.ant-dropdown-menu-item {
+  color: var(--dropdown-menu-item-col) !important;
+  font-size: 1rem !important;
+}
+
+.ant-dropdown-menu-item-active {
+  background-color: var(--dropdown-menu-item-active-bg) !important;
+}
+
+.ant-dropdown-menu-item-divider {
+  background-color: var(--dropdown-menu-item-col) !important;
+}
+
+.dropdown-icon {
+  margin-right: 8px;
+}

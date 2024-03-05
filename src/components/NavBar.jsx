@@ -18,7 +18,7 @@ const NavBar = ({ ...props }) => {
   }, [theme]);
   //Login PAGE
   const redirectLogin = () => {
-    navigate("/auth");
+    navigate("/login");
   };
   return (
     <>
@@ -57,13 +57,15 @@ const NavBar = ({ ...props }) => {
               </li>
             ))}
           </ul>
-          {location.pathname !== "/auth" ? (
+          {location.pathname === "/login" ? (
+            <></>
+          ) : (location.pathname === "/register" ? (
+            <></>
+          ) : (
             <button className="btn" onClick={redirectLogin}>
               Get Started <i className="fa-solid fa-right-to-bracket" />
             </button>
-          ) : (
-            <></>
-          )}
+          ))}
         </div>
       </nav>
     </>

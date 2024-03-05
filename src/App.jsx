@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Landing from "./pages/Landing";
-import Auth from "./pages/Auth";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { ThemeContext, themes } from "./context/ThemeContext";
+import PublicRoute from "./components/PublicRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [theme, setTheme] = useState(
@@ -24,13 +27,56 @@ function App() {
       <ThemeContext.Provider value={{ theme, handleClick }}>
         <Routes>
           {localStorage.getItem("token") ? (
-            <Route path="/" element={<Homepage />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Homepage />
+                </ProtectedRoute>
+              }
+            />
           ) : (
-            <Route path="/" element={<Landing />} />
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <Landing />
+                </PublicRoute>
+              }
+            />
           )}
-          <Route path="/about" element={<Landing />} />
-          <Route path="/contact" element={<Landing />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route
+            path="/about"
+            element={
+              <PublicRoute>
+                <Landing />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <PublicRoute>
+                <Landing />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
         </Routes>
       </ThemeContext.Provider>
     </>

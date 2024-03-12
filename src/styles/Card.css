@@ -146,6 +146,21 @@
   transition: ease-in-out 600ms;
 }
 
+/*Register Page Submit Button */
+.reg-btn {
+  width: 120px !important;
+}
+
+.reg-admin-submit {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.reg-admin-submit .checkbox {
+  margin-left: 10px;
+}
+
 .stock-video {
   width: 50%;
   height: 100%;
@@ -350,7 +365,7 @@
   cursor: pointer;
 }
 
-.rem-forgot-password {
+.admin-forgot-password {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -360,4 +375,31 @@
   color: rgb(125, 187, 245);
   font-size: 1rem;
   font-weight: 300;
+}
+
+.forgot-pass-email {
+  margin-left: -50px !important;
+  width: 300px;
+}
+
+.forgot-pass-submit {
+  margin-left: 120px !important;
+  width: 120px !important;
+}
+
+.forgot-pass-title {
+  color: rgb(171, 223, 243);
+  font-size: 1.3rem;
+  margin-top: 150px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.forgot-pass-confirmation {
+  color: rgb(142, 233, 170);
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+  margin-left: 15px;
+  user-select: none;
 }

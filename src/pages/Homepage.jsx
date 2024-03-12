@@ -1,34 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../styles/Homepage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
 import axios from "axios";
-import { Dropdown, Space } from "antd";
-const items = [
-  {
-    label: (
-      <Link to="/profile">
-        <i className="fa-regular fa-user dropdown-icon" />
-        Profile
-      </Link>
-    ),
-    key: "0",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: (
-      <span className="logout">
-        <i className="fa-solid fa-arrow-right-from-bracket dropdown-icon" />
-        Logout
-      </span>
-    ),
-    key: "2",
-  },
-];
+import { Dropdown, Space, message } from "antd";
+import HomeCard from "../components/HomeCard";
+
 const Homepage = () => {
   const { theme, handleClick } = useContext(ThemeContext);
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const fetchUser = async () => {
     try {
@@ -44,6 +24,43 @@ const Homepage = () => {
       console.log(error);
     }
   };
+
+  const handleLogout = () => {
+    try {
+      if (localStorage.getItem("token")) {
+        localStorage.removeItem("token");
+        message.success("Logged Out Successfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const items = [
+    {
+      label: (
+        <Link to="/profile">
+          <i className="fa-regular fa-user dropdown-icon" />
+          Profile
+        </Link>
+      ),
+      key: "0",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: (
+        <span className="logout" onClick={handleLogout}>
+          <i className="fa-solid fa-arrow-right-from-bracket dropdown-icon" />
+          Logout
+        </span>
+      ),
+      key: "2",
+    },
+  ];
+
   const modeChanger = () => {
     handleClick();
   };
@@ -86,6 +103,7 @@ const Homepage = () => {
           </ul>
         </div>
       </nav>
+      <HomeCard />
     </>
   );
 };

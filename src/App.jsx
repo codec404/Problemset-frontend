@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import { ThemeContext, themes } from "./context/ThemeContext";
 import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const [theme, setTheme] = useState(
@@ -58,6 +60,22 @@ function App() {
             element={
               <PublicRoute>
                 <Landing />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <PublicRoute>
+                <ForgotPassword />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <PublicRoute>
+                <ResetPassword />
               </PublicRoute>
             }
           />

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Checkbox, Form, Input, Select, message } from "antd";
+import countries from "../assets/Data/Countries";
 import video from "../assets/videos/stockvideo.mp4";
 import image from "../assets/images/stockimage.svg";
 import image2 from "../assets/images/10332256_4412010.svg";
@@ -8,13 +9,20 @@ import googleIcon from "../assets/images/google-icon.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const { Option } = Select;
+
 const Card = ({ ...props }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [checked, setChecked] = useState(false);
+  const [changeContent, setChangeContent] = useState(null);
 
   // REGISTER
   const handleRegister = async (values) => {
     try {
+      if (checked) values.isAdmin = true;
+      else values.isAdmin = false;
+      // console.log(values);
       const res = await axios.post("/api/v1/auth/register", values);
       if (res?.data?.success) {
         message.success("Successfully Registered");
@@ -30,22 +38,49 @@ const Card = ({ ...props }) => {
 
   const handleLogin = async (values) => {
     // console.log(values);
-    let rem = values.remember;
-    delete values.remember;
     try {
       const res = await axios.post("/api/v1/auth/login", values);
       if (res?.data?.success) {
-        if (rem) {
-          localStorage.setItem("token", res?.data?.token);
-        }
+        localStorage.setItem("token", res?.data?.token);
         message.success("Logged in successfully");
         navigate("/");
       } else {
         message.error(res?.data?.message);
       }
     } catch (error) {
-      console.log("Error in React-register");
+      if (error.response.status === 401 || error.response.status === 404) {
+        message.error("Wrong credentials");
+      }
+      console.log("Error in React-Login");
     }
+  };
+
+  const handleForgotPassword = async (values) => {
+    try {
+      const res = await axios.post("/api/v1/auth/forgot-password", values);
+      if (res?.data?.success) {
+        message.success(res?.data?.message);
+        setChangeContent(
+          "You have been sent a password reset link in the provided email"
+        );
+      } else {
+        message.error(res?.data?.message);
+        setChangeContent(res?.data?.message);
+      }
+    } catch (error) {
+      if (error.response.status === 404) {
+        message.error("User Not Found");
+        setChangeContent("User Not Found");
+      }
+      console.log("Error in React Forgot Password");
+    }
+  };
+
+  const checkAdmin = (e) => {
+    if (!checked) {
+      message.warning("You are registering as an admin!!!");
+    }
+    setChecked(e.target.checked);
   };
 
   //GOOGLE SIGN IN HANDLER
@@ -174,7 +209,6 @@ const Card = ({ ...props }) => {
                   labelCol={{ span: 10 }}
                   wrapperCol={{ span: 16 }}
                   style={{ maxWidth: 600 }}
-                  initialValues={{ remember: true }}
                   onFinish={handleLogin}
                   autoComplete="off"
                 >
@@ -203,10 +237,25 @@ const Card = ({ ...props }) => {
                   >
                     <Input.Password />
                   </Form.Item>
-                  <span className="rem-forgot-password">
-                    <Form.Item name="remember" valuePropName="checked" noStyle>
-                      <Checkbox>Remember me</Checkbox>
+                  {checked && (
+                    <Form.Item
+                      label="Pin"
+                      name="pin"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your 6-digit pin!",
+                        },
+                      ]}
+                    >
+                      <Input.Password minLength={6} maxLength={6} />
                     </Form.Item>
+                  )}
+                  <span className="admin-forgot-password">
+                    <Checkbox checked={checked} onChange={checkAdmin}>
+                      Admin
+                    </Checkbox>
+
                     <Link className="forgot-password" to={"/forgot-password"}>
                       Forgot Password
                     </Link>
@@ -246,6 +295,112 @@ const Card = ({ ...props }) => {
               </div>
             </>
           )}
+          {props.current === "forgot-password" && (
+            <>
+              <div className="stock-image">
+                <img src={loginImg} alt="loginImg" />
+              </div>
+              <div className="get-started-login">
+                {!changeContent ? (
+                  <Form
+                    name="basic"
+                    labelCol={{ span: 10 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ maxWidth: 600 }}
+                    onFinish={handleForgotPassword}
+                    autoComplete="off"
+                  >
+                    <div className="forgot-pass-title">
+                      <span>Enter the registered email</span>
+                    </div>
+                    <Form.Item
+                      label="Email"
+                      name="email"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your username!",
+                        },
+                      ]}
+                    >
+                      <Input className="forgot-pass-email" type="email" />
+                    </Form.Item>
+                    <Form.Item
+                      wrapperCol={{
+                        offset: 2,
+                        span: 16,
+                      }}
+                    >
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="forgot-pass-submit"
+                      >
+                        Submit
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                ) : (
+                  <div className="forgot-pass-confirmation">
+                    <span>{changeContent}</span>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+          {props.current === "reset-password" && (
+            <>
+              <div className="stock-image">
+                <img src={loginImg} alt="loginImg" />
+              </div>
+              <div className="get-started-login">
+                <Form
+                  name="basic"
+                  labelCol={{ span: 11 }}
+                  wrapperCol={{ span: 16 }}
+                  style={{ maxWidth: 600 }}
+                  onFinish={handleLogin}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    label="New Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your new password!",
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Confirm Password"
+                    name="confirm-password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please confirm your password!",
+                      },
+                    ]}
+                  >
+                    <Input type="password" />
+                  </Form.Item>
+                  <Form.Item
+                    wrapperCol={{
+                      offset: 2,
+                      span: 16,
+                    }}
+                  >
+                    <Button type="primary" htmlType="submit">
+                      Login
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </div>
+            </>
+          )}
           {props.current === "register" && (
             <>
               <div className="stock-image">
@@ -275,7 +430,6 @@ const Card = ({ ...props }) => {
                   labelCol={{ span: 8 }}
                   wrapperCol={{ span: 16 }}
                   style={{ maxWidth: 600 }}
-                  initialValues={{ remember: true }}
                   onFinish={handleRegister}
                   autoComplete="off"
                   className="reg-form"
@@ -303,7 +457,7 @@ const Card = ({ ...props }) => {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input type="email" />
                   </Form.Item>
 
                   <Form.Item
@@ -324,7 +478,25 @@ const Card = ({ ...props }) => {
                     name="location"
                     className="non-compulsory"
                   >
-                    <Input />
+                    <Select
+                      showSearch
+                      placeholder="Select Location"
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        (option?.value.toLowerCase() ?? "").includes(
+                          input.toLowerCase()
+                        )
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.value ?? "")
+                          .toLowerCase()
+                          .localeCompare((optionB?.value ?? "").toLowerCase())
+                      }
+                    >
+                      {countries.map((items) => (
+                        <Option value={items.name} key={items.code}></Option>
+                      ))}
+                    </Select>
                   </Form.Item>
 
                   <Form.Item
@@ -334,17 +506,24 @@ const Card = ({ ...props }) => {
                   >
                     <Input />
                   </Form.Item>
-
-                  <Form.Item
-                    wrapperCol={{
-                      offset: 2,
-                      span: 16,
-                    }}
-                  >
-                    <Button type="primary" htmlType="submit">
-                      Register
-                    </Button>
-                  </Form.Item>
+                  <span className="reg-admin-submit">
+                    <Checkbox
+                      checked={checked}
+                      onChange={checkAdmin}
+                      className="checkbox"
+                    >
+                      Admin
+                    </Checkbox>
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="reg-btn"
+                      >
+                        Register
+                      </Button>
+                    </Form.Item>
+                  </span>
                 </Form>
                 <div className="separator">
                   <span className="line line-left"></span>

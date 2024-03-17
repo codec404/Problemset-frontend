@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AdminHomeCard = () => {
+const AdminHome = () => {
   return (
     <>
       
@@ -8,4 +8,4 @@ const AdminHomeCard = () => {
   )
 }
 
-export default AdminHomeCard
+export default AdminHome

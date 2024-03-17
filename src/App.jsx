@@ -9,6 +9,8 @@ import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Profile from "./pages/Profile";
+import AdminHome from "./pages/AdminHome";
 
 function App() {
   const [theme, setTheme] = useState(
@@ -72,7 +74,7 @@ function App() {
             }
           />
           <Route
-            path="/reset-password"
+            path="/reset-password/:id/:token"
             element={
               <PublicRoute>
                 <ResetPassword />
@@ -93,6 +95,22 @@ function App() {
               <PublicRoute>
                 <Register />
               </PublicRoute>
+            }
+          />
+          <Route
+            path="/profile/:id"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/:id"
+            element={
+              <ProtectedRoute>
+                <AdminHome />
+              </ProtectedRoute>
             }
           />
         </Routes>

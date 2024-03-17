@@ -59,13 +59,13 @@ const NavBar = ({ ...props }) => {
           </ul>
           {location.pathname === "/login" ? (
             <></>
-          ) : (location.pathname === "/register" ? (
+          ) : location.pathname === "/register" ? (
             <></>
           ) : (
             <button className="btn" onClick={redirectLogin}>
               Get Started <i className="fa-solid fa-right-to-bracket" />
             </button>
-          ))}
+          )}
         </div>
       </nav>
     </>

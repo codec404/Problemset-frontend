@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserHomeCard = () => {
+const UserHome = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const UserHomeCard = () => {
   )
 }
 
-export default UserHomeCard
+export default UserHome

@@ -6,7 +6,7 @@ import image from "../assets/images/stockimage.svg";
 import image2 from "../assets/images/10332256_4412010.svg";
 import loginImg from "../assets/images/Code typing2.svg";
 import googleIcon from "../assets/images/google-icon.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const { Option } = Select;
@@ -16,6 +16,7 @@ const Card = ({ ...props }) => {
   const location = useLocation();
   const [checked, setChecked] = useState(false);
   const [changeContent, setChangeContent] = useState(null);
+  const { id, token } = useParams();
 
   // REGISTER
   const handleRegister = async (values) => {
@@ -43,7 +44,8 @@ const Card = ({ ...props }) => {
       if (res?.data?.success) {
         localStorage.setItem("token", res?.data?.token);
         message.success("Logged in successfully");
-        navigate("/");
+        if (!checked) navigate("/");
+        else navigate(`/admin/${res?.data?.user._id}`);
       } else {
         message.error(res?.data?.message);
       }
@@ -76,6 +78,23 @@ const Card = ({ ...props }) => {
     }
   };
 
+  // RESET PASSWORD
+  const handleResetPassword = async (values) => {
+    // console.log(values);
+    try {
+      const res = await axios.post(
+        `/api/v1/auth/reset-password/${id}/${token}`,
+        values
+      );
+      if (res?.data?.success) {
+        message.success(res?.data?.message);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      message.error("Error in React Reset Password");
+    }
+  };
   const checkAdmin = (e) => {
     if (!checked) {
       message.warning("You are registering as an admin!!!");
@@ -85,7 +104,15 @@ const Card = ({ ...props }) => {
 
   //GOOGLE SIGN IN HANDLER
 
-  const googleSignHandler = () => {};
+  const googleSignHandler = async () => {
+    try {
+      localStorage.setItem("token", "demo");
+      window.open("http://localhost:8080/auth/google/callback", "_self");
+    } catch (error) {
+      localStorage.removeItem("token");
+      console.log(error);
+    }
+  };
   const loginSwitch = () => {
     if (location.pathname === "/register") {
       navigate("/login");
@@ -354,12 +381,21 @@ const Card = ({ ...props }) => {
                 <img src={loginImg} alt="loginImg" />
               </div>
               <div className="get-started-login">
+                <div className="reset-pass-heading">
+                  <span>Enter new password</span>
+                </div>
                 <Form
                   name="basic"
                   labelCol={{ span: 11 }}
                   wrapperCol={{ span: 16 }}
                   style={{ maxWidth: 600 }}
-                  onFinish={handleLogin}
+                  onFinish={(values) => {
+                    if (values.password === values.confirm_password) {
+                      handleResetPassword(values);
+                    } else {
+                      message.error("Re-enter the password correctly!!!");
+                    }
+                  }}
                   autoComplete="off"
                 >
                   <Form.Item
@@ -377,7 +413,7 @@ const Card = ({ ...props }) => {
 
                   <Form.Item
                     label="Confirm Password"
-                    name="confirm-password"
+                    name="confirm_password"
                     rules={[
                       {
                         required: true,
@@ -393,8 +429,12 @@ const Card = ({ ...props }) => {
                       span: 16,
                     }}
                   >
-                    <Button type="primary" htmlType="submit">
-                      Login
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="forgot-pass-submit"
+                    >
+                      Submit
                     </Button>
                   </Form.Item>
                 </Form>
@@ -525,7 +565,7 @@ const Card = ({ ...props }) => {
                     </Form.Item>
                   </span>
                 </Form>
-                <div className="separator">
+                {/* <div className="separator">
                   <span className="line line-left"></span>
                   <span className="separator-text">or</span>
                   <span className="line line-right"></span>
@@ -535,7 +575,7 @@ const Card = ({ ...props }) => {
                     <img src={googleIcon} alt="googleIcon" />
                   </div>
                   <div className="auth-text">Sign In</div>
-                </button>
+                </button> */}
                 {location.pathname === "/login" ? (
                   <span className="redirect">
                     New User? <Link to={"/register"}>Sign Up</Link>

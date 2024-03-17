@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Madimi+One&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +8,80 @@
 
 .home-main-container {
   height: 100vh;
-  width: 1000px;
-  background-color: aquamarine;
+  width: 1050px;
+  background-color: rgba(44, 57, 134, 0.329);
   margin: 0 auto;
+  box-shadow: 1px 2px 2px rgba(5, 5, 5, 0.096);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.home-main-container-title {
+  width: 95%;
+  height: 140px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-title {
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.7rem;
+  height: 40%;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.search-bar {
+  height: 43px;
+  width: 400px;
+  border: 1px solid white;
+  margin-top: 20px;
+  border-radius: 20px;
+  display: flex;
+}
+
+.search-icon {
+  height: 100%;
+  width: 11%;
+  text-align: center;
+  padding-top: 12px;
+  color: white;
+}
+
+.search-container {
+  height: 100%;
+  width: 75%;
+  color: white;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-right: 1px solid white;
+}
+
+.search-button {
+  height: 100%;
+  width: 14%;
+}
+
+.search-button button {
+  height: 100%;
+  width: 90%;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
 }

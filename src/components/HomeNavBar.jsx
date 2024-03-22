@@ -105,6 +105,26 @@ const HomeNavBar = ({ children }) => {
             <li className="notify">
               <i className="fa-solid fa-bell" />
             </li>
+            <li>
+              <Link
+                to="/"
+                className={`problems ${
+                  window.location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                Problems
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contests"
+                className={`contests ${
+                  window.location.pathname === "/contests" ? "active" : ""
+                }`}
+              >
+                Contests
+              </Link>
+            </li>
             <Dropdown
               menu={{
                 items,

@@ -89,7 +89,9 @@
 }
 
 .username {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 1.2rem;
   color: var(--profile-icon);
   margin-left: -15px;
@@ -126,10 +128,9 @@
 }
 
 .problems,
-.users_list {
-  font-family: "Public Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: bolder;
+.users_list,
+.contests {
+  font-family: "Protest Strike", sans-serif;
   font-style: normal;
   font-size: 1.4rem;
 }

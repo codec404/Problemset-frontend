@@ -1,2 +1,121 @@
 @import url("https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Honk&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Madimi+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Madimi+One&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+.light-mode {
+  --dock-bg: #3d0663;
+  --dock-active-col: rgb(194, 157, 241);
+  --data-color: rgb(228, 210, 252);
+}
+
+.dark-mode {
+  --dock-bg: #6a9af1;
+  --dock-active-col: rgb(2, 2, 58);
+  --data-color: cyan;
+}
+
+ul li {
+  list-style: none;
+}
+.main-profile-container {
+  height: 600px;
+  width: 1000px;
+  margin: 0 auto;
+  /* border: 1px solid var(--dock-bg); */
+  margin-top: 10vh;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: var(--dock-bg) 1px 1px 1px;
+}
+
+.changer-dock {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 12%;
+  justify-content: space-evenly;
+  border-bottom: 0.5px solid var(--dock-bg);
+  color: var(--dock-bg);
+  /* box-shadow: var(--dock-bg) 1px 1px; */
+}
+
+.changer-dock li {
+  height: 100%;
+  width: 33.33%;
+  text-align: center;
+  font-family: "Madimi One", sans-serif;
+  font-size: 1.4rem;
+  padding-top: 20px;
+  cursor: pointer;
+  border-right: 0.5px solid var(--dock-bg);
+}
+.changer-dock li:last-child {
+  border-right: none;
+}
+.dock-active {
+  background: var(--dock-bg);
+  color: var(--dock-active-col);
+}
+
+.dock-active:first-child {
+  border-top-left-radius: 20px;
+}
+
+.dock-active:last-child {
+  border-top-right-radius: 20px;
+}
+
+.profile-body {
+  height: 84%;
+  width: 96%;
+  display: flex;
+  /* border-bottom: 1px solid var(--dock-bg); */
+  padding: 20px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.profile-pic-container {
+  height: 70%;
+  width: 36%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid var(--dock-bg); */
+}
+
+.profile-pic-container i {
+  color: var(--dock-bg);
+  font-size: 12rem;
+}
+
+.profile-details-container {
+  height: 100%;
+  width: 60%;
+  margin-left: 20px;
+  color: var(--dock-bg);
+  font-family: "Madimi One", sans-serif;
+}
+
+.user-header {
+  height: 15%;
+  width: 100%;
+  border-bottom: 1px solid var(--dock-bg);
+  font-size: 2rem;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.user-detail {
+  height: 17%;
+  width: 100%;
+  font-size: 1.2rem;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+.user-data {
+  color: var(--data-color);
+}

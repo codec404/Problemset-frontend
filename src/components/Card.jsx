@@ -40,12 +40,14 @@ const Card = ({ ...props }) => {
   const handleLogin = async (values) => {
     // console.log(values);
     try {
+      if (checked) values.isAdmin = true;
+      else values.isAdmin = false;
       const res = await axios.post("/api/v1/auth/login", values);
       if (res?.data?.success) {
         localStorage.setItem("token", res?.data?.token);
         message.success("Logged in successfully");
-        if (!checked) navigate("/");
-        else navigate(`/admin/${res?.data?.user._id}`);
+        if (checked) localStorage.setItem("role", "admin");
+        navigate("/");
       } else {
         message.error(res?.data?.message);
       }
@@ -95,7 +97,15 @@ const Card = ({ ...props }) => {
       message.error("Error in React Reset Password");
     }
   };
-  const checkAdmin = (e) => {
+
+  const checkAdminLogin = (e) => {
+    if (!checked) {
+      message.warning("You are logging in as an admin!!!");
+    }
+    setChecked(e.target.checked);
+  };
+
+  const checkAdminRegister = (e) => {
     if (!checked) {
       message.warning("You are registering as an admin!!!");
     }
@@ -279,7 +289,7 @@ const Card = ({ ...props }) => {
                     </Form.Item>
                   )}
                   <span className="admin-forgot-password">
-                    <Checkbox checked={checked} onChange={checkAdmin}>
+                    <Checkbox checked={checked} onChange={checkAdminLogin}>
                       Admin
                     </Checkbox>
 
@@ -549,7 +559,7 @@ const Card = ({ ...props }) => {
                   <span className="reg-admin-submit">
                     <Checkbox
                       checked={checked}
-                      onChange={checkAdmin}
+                      onChange={checkAdminRegister}
                       className="checkbox"
                     >
                       Admin

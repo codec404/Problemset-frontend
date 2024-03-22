@@ -1,7 +1,13 @@
-import React from "react";
-import "../styles/HomeCard.css";
+import React, { useState } from "react";
+import "../styles/AdminProblem.css";
+import { useNavigate } from "react-router-dom";
+import ProblemList from "./ProblemList";
 
 const HomeCard = () => {
+  const navigate = useNavigate();
+  const handleAddProblem = () => {
+    navigate("/add-new-problem");
+  };
   return (
     <>
       <div className="home-main-container">
@@ -31,6 +37,12 @@ const HomeCard = () => {
             <div className="filter-title">Filter</div>
             <div className="filterBody"></div>
           </div>
+          <div className="add-new-problem">
+            <button className="add-new-btn" onClick={handleAddProblem}>
+              <span>+</span>Add Problem
+            </button>
+          </div>
+          <ProblemList />
         </div>
       </div>
     </>

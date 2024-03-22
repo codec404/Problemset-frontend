@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Madimi+One&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -9,11 +9,13 @@
 .light-mode {
   --body-background: rgba(197, 209, 248, 0.548);
   --text-color: rgb(43, 49, 105);
+  --title-color: #391357;
 }
 
 .dark-mode {
   --body-background: rgba(1, 11, 65, 0.89);
   --text-color: rgba(0, 255, 255, 0.692);
+  --title-color: rgb(171, 195, 247);
 }
 
 .home-main-container {
@@ -135,4 +137,114 @@
 .filterBody {
   height: 100%;
   width: 90%;
+}
+
+.add-new-problem {
+  width: 100%;
+  height: 50px;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.add-new-btn {
+  height: 80%;
+  width: 150px;
+  background-color: rgb(58, 190, 58);
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(245, 255, 246);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: ease 500ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+}
+
+.add-new-btn span {
+  font-size: 2rem;
+  margin-right: 2px;
+}
+
+.add-new-btn:hover {
+  background-color: rgb(11, 143, 11);
+}
+
+.main-new-problem-container {
+  height: 850px;
+  width: 1800px;
+  /* border: 1px solid rebeccapurple; */
+  margin: auto;
+  margin-top: 20px;
+}
+
+.new-problem-title {
+  height: 8%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-family: "Madimi One", sans-serif;
+  letter-spacing: 1px;
+  color: var(--title-color);
+}
+
+.row {
+  width: 100%;
+  display: flex;
+}
+
+.column {
+  width: 50%;
+  padding-top: 100px;
+  padding-left: 40px;
+  margin: 0 auto;
+}
+
+.col-1 {
+  margin-left: 140px;
+}
+
+label {
+  color: var(--title-color) !important;
+  font-size: 1.1rem !important;
+  font-weight: bolder;
+}
+
+.buttons {
+  display: flex;
+}
+
+.saveBtn {
+  background-color: rgb(13, 158, 13) !important;
+  /* margin-top: 1px; */
+  margin-left: 472px;
+  margin-right: 30px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.saveBtn:hover {
+  background-color: green !important;
+}
+
+/* .doneBtn {
+  margin-left: -130px !important;
+} */
+
+.ant-flex {
+  gap: 4px 4px !important;
+  font-weight: bolder !important;
+}
+
+.ant-flex span {
+  font-size: 0.9rem !important;
 }

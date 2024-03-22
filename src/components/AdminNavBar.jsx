@@ -42,6 +42,7 @@ const AdminNavBar = ({ children }) => {
       if (localStorage.getItem("token")) {
         if (!localStorage.getItem("token").includes("demo")) {
           localStorage.removeItem("token");
+          localStorage.removeItem("role");
           message.success("Logged Out Successfully");
           navigate("/login");
         } else {
@@ -50,6 +51,7 @@ const AdminNavBar = ({ children }) => {
           });
           if (res?.data?.success) {
             localStorage.removeItem("token");
+            localStorage.removeItem("role");
             message.success("Logged Out Successfully");
             navigate("/login");
           }
@@ -106,7 +108,9 @@ const AdminNavBar = ({ children }) => {
               <i className="fa-solid fa-bell" />
             </li>
             <li>
-              <span className="welcome-user">Welcome, {user}</span>
+              <Link to={`/admin/profile/${clientId}`} className="welcome-user">
+                Welcome, {user}
+              </Link>
             </li>
             <li>
               <Link to="/problems" className="problems">

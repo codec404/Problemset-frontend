@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/AdminProblem.css";
 import { useNavigate } from "react-router-dom";
 import ProblemList from "./ProblemList";
+import { Input } from "antd";
 
 const HomeCard = () => {
   const navigate = useNavigate();
@@ -35,7 +36,16 @@ const HomeCard = () => {
         <div className="home-main-container-body">
           <div className="filtertags-container">
             <div className="filter-title">Filter</div>
-            <div className="filterBody"></div>
+            <div className="filterBody">
+              <div className="filterTags filterOptions">
+                <label htmlFor="filterTags">Tags</label>
+                <Input />
+              </div>
+              <div className="filterOptions filterDifficulty">
+                <label htmlFor="filterDifficulty">Difficulty</label>
+                <Input />
+              </div>
+            </div>
           </div>
           <div className="add-new-problem">
             <button className="add-new-btn" onClick={handleAddProblem}>

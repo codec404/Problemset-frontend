@@ -72,7 +72,55 @@ const ProblemPage = () => {
       </div>
     </AdminNavBar>
   ) : (
-    <HomeNavBar></HomeNavBar>
+    <HomeNavBar>
+      <div className="problemContainer">
+        <div className="problem-title">
+          <span>{problem.problemName}</span>
+        </div>
+        <div className="problem-Statement">
+          <span>{problem.problemStatement}</span>
+        </div>
+        <div className="input-Format">
+          <div className="inp-format-heading">
+            <span>Input Format</span>
+          </div>
+          <div className="inp-format-body">
+            <span>{problem.inputFormat}</span>
+          </div>
+        </div>
+        <div className="output-Format">
+          <div className="op-format-heading">
+            <span>Output Format</span>
+          </div>
+          <div className="op-format-body">
+            <span>{problem.outputFormat}</span>
+          </div>
+        </div>
+        <div className="problem-constraints">
+          <div className="constraint-heading">
+            <span>Constraints</span>
+          </div>
+          <div className="constraint-body">
+            <span>{problem.constraints}</span>
+          </div>
+        </div>
+        <div className="sample-testcase">
+          <div className="testCase-heading">
+            <span>Sample Test Case</span>
+          </div>
+          <div className="testCase-body">
+            <span>
+              {problem?.sampleTestCase?.split("<br/>").map((items, index) => (
+                <span key={index}>
+                  {items}
+                  <br />
+                </span>
+              ))}
+            </span>
+          </div>
+        </div>
+      </div>
+    </HomeNavBar>
   );
 };
 

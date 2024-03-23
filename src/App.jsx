@@ -19,6 +19,7 @@ import AdminProblems from "./pages/AdminProblems";
 import AddNewProblem from "./pages/AddNewProblem";
 import ProblemPage from "./pages/ProblemPage";
 import EditProblem from "./pages/EditProblem";
+import Users from "./pages/Users";
 
 function App() {
   const [theme, setTheme] = useState(
@@ -212,6 +213,16 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <AddNewProblem />
+                    </ProtectedRoute>
+                  }
+                />
+              )}
+              {localStorage.getItem("role") && (
+                <Route
+                  path="/users-list"
+                  element={
+                    <ProtectedRoute>
+                      <Users />
                     </ProtectedRoute>
                   }
                 />

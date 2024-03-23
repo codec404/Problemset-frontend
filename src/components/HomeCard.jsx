@@ -1,5 +1,7 @@
 import React from "react";
 import "../styles/HomeCard.css";
+import ProblemList from "./ProblemList";
+import { Input } from "antd";
 
 const HomeCard = () => {
   return (
@@ -29,9 +31,19 @@ const HomeCard = () => {
         <div className="home-main-container-body">
           <div className="filtertags-container">
             <div className="filter-title">Filter</div>
-            <div className="filterBody"></div>
+            <div className="filterBody">
+              <div className="filterTags filterOptions">
+                <label htmlFor="filterTags">Tags</label>
+                <Input />
+              </div>
+              <div className="filterOptions filterDifficulty">
+                <label htmlFor="filterDifficulty">Difficulty</label>
+                <Input />
+              </div>
+            </div>
           </div>
         </div>
+        <ProblemList />
       </div>
     </>
   );

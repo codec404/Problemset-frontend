@@ -19,7 +19,7 @@ import AdminProblems from "./pages/AdminProblems";
 import AddNewProblem from "./pages/AddNewProblem";
 import ProblemPage from "./pages/ProblemPage";
 import EditProblem from "./pages/EditProblem";
-import Users from "./pages/Users";
+import UsersList from "./pages/UsersList";
 
 function App() {
   const [theme, setTheme] = useState(
@@ -222,7 +222,7 @@ function App() {
                   path="/users-list"
                   element={
                     <ProtectedRoute>
-                      <Users />
+                      <UsersList />
                     </ProtectedRoute>
                   }
                 />

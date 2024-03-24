@@ -1,0 +1,186 @@
+.light-mode {
+  --dash-bg: #9ca6d7;
+  --dash-col: #2b3375;
+  --even: rgba(85, 17, 245, 0.342);
+  --problem-col: #b4c6f8;
+  --hover-col: rgb(115, 177, 235);
+  --tag-bg: #b7a4fa;
+  --tag-col: #040c35;
+  --user-header: rgb(56, 5, 56);
+  --body-bg: rgba(75, 10, 75, 0.178);
+  --box-sh: rgba(0, 0, 0, 0.3) 1px 1px 1px;
+  --border: rgba(0, 0, 0, 0.082);
+  --user-text: rgb(58, 3, 58);
+  --odd: rgba(92, 64, 194, 0.233);
+}
+
+.dark-mode {
+  --dash-bg: #040e45;
+  --dash-col: #01b5b5;
+  --problem-col: #c4d2fa;
+  --even: rgb(6, 6, 92);
+  --hover-col: rgb(93, 164, 245);
+  --tag-bg: #93c1f3;
+  --tag-col: #042433;
+  --user-header: rgba(80, 248, 248, 0.781);
+  --body-bg: #040e4544;
+  --box-sh: rgba(0, 255, 255, 0.301) 1px 1px 1px;
+  --border: rgba(0, 255, 255, 0.103);
+  --user-text: rgb(149, 184, 235);
+  --odd: rgba(64, 179, 194, 0.151);
+}
+
+.main-users-container {
+  height: 800px;
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 40px;
+  background-color: var(--body-bg);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--box-sh);
+}
+
+.users-header {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid green; */
+  color: var(--user-header);
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  padding: 5px;
+}
+
+.users-body {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.users-options {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: 7%;
+  border-bottom: 1px solid var(--border);
+  margin-top: 5px;
+}
+
+.users-option {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-family: "Madimi One", sans-serif;
+  color: var(--user-header);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.userActive {
+  background-color: var(--hover-col);
+  color: var(--tag-col);
+}
+
+.users-container {
+  width: 100%;
+}
+
+.container-header {
+  height: 2.5rem;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--dash-bg);
+  font-size: 1rem;
+  color: var(--dash-col);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+}
+
+.user-icon-holder {
+  width: 6%;
+}
+.username-holder {
+  width: 30%;
+  padding-left: 10px;
+}
+.userLocation-holder {
+  width: 25%;
+}
+.userAffiliation-holder {
+  width: 25%;
+}
+
+.user-brief-container {
+  display: flex;
+  height: 3rem;
+  width: 100%;
+  border: 1px solid var(--border);
+  align-items: center;
+}
+
+.odd {
+  background-color: var(--odd);
+}
+
+.user-icon {
+  width: 6%;
+  font-size: 1.2rem;
+  color: var(--user-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-userName {
+  width: 30%;
+  font-size: 1.2rem;
+  color: var(--user-text);
+  font-family: "Madimi One", sans-serif;
+  padding-left: 10px;
+}
+
+.user-userLocation {
+  width: 25%;
+  font-size: 1.2rem;
+  color: var(--user-text);
+  font-family: "Madimi One", sans-serif;
+}
+.user-userAffiliation {
+  width: 25%;
+  font-size: 1.2rem;
+  color: var(--user-text);
+  font-family: "Madimi One", sans-serif;
+}
+
+.removeUser {
+  display: flex;
+  align-items: center;
+}
+
+.removeUser button {
+  height: 1.5rem;
+  width: 4rem !important;
+  border: none;
+  outline: none;
+  background-color: rgb(240, 61, 29);
+  border-radius: 5px;
+  color: rgb(235, 235, 235);
+  letter-spacing: 0.2px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.removeUser button:hover {
+  background-color: rgb(231, 25, 25);
+}

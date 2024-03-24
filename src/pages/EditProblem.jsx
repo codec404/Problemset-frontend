@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import AdminNavBar from "../components/AdminNavBar";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Input, Flex, Tag, theme, Tooltip, message } from "antd";
+import { Input, Flex, Tag, theme, Tooltip, message, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 const tagInputStyle = {
@@ -13,6 +13,20 @@ const tagInputStyle = {
 };
 
 const EditProblem = () => {
+  //SHOW MODAL
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    handleDelete();
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const navigate = useNavigate();
   const [problem, setProblem] = useState({});
   const [tags, setTags] = useState([]);
@@ -43,8 +57,8 @@ const EditProblem = () => {
     }
   };
 
-  const handleDelete = async (event) => {
-    event.preventDefault();
+  const handleDelete = async () => {
+    // event.preventDefault();
     try {
       const res = await axios.delete(`/api/v1/admin/problem/${id}`);
       if (res?.data?.success) {
@@ -345,7 +359,7 @@ const EditProblem = () => {
                     <button className="save-btn" type="submit">
                       Save
                     </button>
-                    <button className="delete-btn" onClick={handleDelete}>
+                    <button className="delete-btn" onClick={showModal}>
                       Delete
                     </button>
                   </div>
@@ -354,6 +368,14 @@ const EditProblem = () => {
             </form>
           </div>
         </div>
+        <Modal
+          title="Confirm"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <p>Are you sure you want to delete the problem?</p>
+        </Modal>
       </>
     </AdminNavBar>
   );

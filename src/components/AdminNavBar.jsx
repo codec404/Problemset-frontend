@@ -113,12 +113,22 @@ const AdminNavBar = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link to="/problems" className="problems">
+              <Link
+                to="/problems"
+                className={`problems ${
+                  location.pathname === "/problems" ? "active" : ""
+                }`}
+              >
                 Problems
               </Link>
             </li>
             <li>
-              <Link to="/users-list" className="users_list">
+              <Link
+                to="/users-list"
+                className={`users_list ${
+                  location.pathname === "/users-list" ? "active" : ""
+                }`}
+              >
                 Users
               </Link>
             </li>
